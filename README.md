@@ -113,13 +113,13 @@ Open **http://localhost:8501** in your browser.
 
 ### Dashboard Pages
 
-1. 📊 **Executive Overview** — KPI cards, delay distribution, hourly trends, route-type performance
-2. 🌐 **Network Graph** — Interactive hub-and-spoke visualization with centrality coloring
-3. 🔴 **Bottleneck Hubs** — Centrality ranking, flow analysis, connectivity heatmap
-4. 🔗 **Corridor Analysis** — Searchable corridors, risk scatter, congestion matrix
-5. 🤖 **ML Model Performance** — Head-to-head comparison, radar chart, feature importance
-6. 🚛 **FTL vs Carting** — Mode analysis, high-risk corridors, AI recommendations
-7. 💡 **Operational Insights** — Network health gauge, prioritized action items, downloadable report
+1.  **Executive Overview** — KPI cards, delay distribution, hourly trends, route-type performance
+2.  **Network Graph** — Interactive hub-and-spoke visualization with centrality coloring
+3.  **Bottleneck Hubs** — Centrality ranking, flow analysis, connectivity heatmap
+4.  **Corridor Analysis** — Searchable corridors, risk scatter, congestion matrix
+5.  **ML Model Performance** — Head-to-head comparison, radar chart, feature importance
+6.  **FTL vs Carting** — Mode analysis, high-risk corridors, AI recommendations
+7.  **Operational Insights** — Network health gauge, prioritized action items, downloadable report
 
 ---
 
