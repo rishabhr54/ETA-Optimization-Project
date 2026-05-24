@@ -5,8 +5,7 @@ venv/
 __pycache__/
 *.pyc
 
-# Images
-images/
+
 
 # Jupyter
 .ipynb_checkpoints/
