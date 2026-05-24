@@ -114,12 +114,19 @@ Open **http://localhost:8501** in your browser.
 ### Dashboard Pages
 
 1.  **Executive Overview** — KPI cards, delay distribution, hourly trends, route-type performance
+![Project Screenshot1](ETA Optimization\images\1_executive_overview.png)
 2.  **Network Graph** — Interactive hub-and-spoke visualization with centrality coloring
+![Project Screenshot2](ETA Optimization\images\2_network_graph.png)
 3.  **Bottleneck Hubs** — Centrality ranking, flow analysis, connectivity heatmap
+![Project Screenshot3](ETA Optimization\images\3_bottleneck_hubs.png)
 4.  **Corridor Analysis** — Searchable corridors, risk scatter, congestion matrix
+![Project Screenshot4](ETA Optimization\images\4_corridor_analysis.png)
 5.  **ML Model Performance** — Head-to-head comparison, radar chart, feature importance
+![Project Screenshot5](ETA Optimization\images\5_model_performance.png)
 6.  **FTL vs Carting** — Mode analysis, high-risk corridors, AI recommendations
+![Project Screenshot6](ETA Optimization\images\6_ftl_vs_carting.png)
 7.  **Operational Insights** — Network health gauge, prioritized action items, downloadable report
+![Project Screenshot7](ETA Optimization\images\7_operational_insights.png)
 
 ---
 
