@@ -179,13 +179,13 @@ def render(featured_df: pd.DataFrame, model_df: pd.DataFrame):
                 bgcolor='rgba(0,0,0,0)',
                 radialaxis=dict(
                     visible=True, range=[0, 1],
-                    gridcolor='rgba(148,163,184,0.1)',
-                    linecolor='rgba(148,163,184,0.1)',
+                    gridcolor='rgba(0,0,0,0.06)',
+                    linecolor='rgba(0,0,0,0.06)',
                     tickfont=dict(size=10, color=COLORS['text_muted']),
                 ),
                 angularaxis=dict(
-                    gridcolor='rgba(148,163,184,0.1)',
-                    linecolor='rgba(148,163,184,0.15)',
+                    gridcolor='rgba(0,0,0,0.06)',
+                    linecolor='rgba(0,0,0,0.08)',
                     tickfont=dict(size=12, color=COLORS['text_primary']),
                 ),
             ),

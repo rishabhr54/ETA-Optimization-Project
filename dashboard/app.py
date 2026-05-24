@@ -18,6 +18,16 @@ import time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import streamlit as st
+
+# Monkeypatch st.plotly_chart to disable the Streamlit theme by default.
+# This prevents Streamlit's dark mode from forcing chart text to white on our white backgrounds.
+_original_plotly_chart = st.plotly_chart
+def custom_plotly_chart(fig, *args, **kwargs):
+    if 'theme' not in kwargs:
+        kwargs['theme'] = None
+    return _original_plotly_chart(fig, *args, **kwargs)
+st.plotly_chart = custom_plotly_chart
+
 import pandas as pd
 
 # ─── Page Config (MUST be first Streamlit command) ───────────────────────────
@@ -60,15 +70,14 @@ def main():
     with st.sidebar:
         # Logo and title
         st.markdown("""
-        <div style="text-align:center; padding:16px 0 8px 0;">
-            <div style="font-size:40px; margin-bottom:4px;">🚛</div>
-            <div style="font-size:18px; font-weight:800;
-                 background: linear-gradient(135deg, #6366F1, #EC4899);
-                 -webkit-background-clip: text;
-                 -webkit-text-fill-color: transparent;">
+        <div style="padding:20px 8px 12px 8px;">
+            <div style="font-size:22px; font-weight:900; color:#FFFFFF; letter-spacing:-0.5px; line-height:1.1;">
+                <span style="color:#D0021B;">DELHIVERY</span>
+            </div>
+            <div style="font-size:13px; font-weight:700; color:#F9FAFB; margin-top:6px; letter-spacing:-0.2px;">
                 ETA Optimization
             </div>
-            <div style="font-size:11px; color:#94A3B8; letter-spacing:1px; text-transform:uppercase;">
+            <div style="font-size:10px; color:#9CA3AF; letter-spacing:0.5px; text-transform:uppercase; margin-top:2px;">
                 Graph-Based Network Intelligence
             </div>
         </div>
@@ -78,21 +87,21 @@ def main():
 
         # Navigation
         st.markdown(
-            '<div style="font-size:11px; color:#94A3B8; letter-spacing:1.5px; '
-            'text-transform:uppercase; margin-bottom:8px; font-weight:600;">Navigation</div>',
+            '<div style="font-size:10px; color:#6B7280; letter-spacing:1.5px; '
+            'text-transform:uppercase; margin-bottom:8px; font-weight:700;">Navigation</div>',
             unsafe_allow_html=True
         )
 
         page = st.radio(
             "Navigate",
             options=[
-                "📊 Executive Overview",
-                "🌐 Network Graph",
-                "🔴 Bottleneck Hubs",
-                "🔗 Corridor Analysis",
-                "🤖 ML Model Performance",
-                "🚛 FTL vs Carting",
-                "💡 Operational Insights",
+                "Executive Overview",
+                "Network Graph",
+                "Bottleneck Hubs",
+                "Corridor Analysis",
+                "ML Model Performance",
+                "FTL vs Carting",
+                "Operational Insights",
             ],
             label_visibility="collapsed",
         )
@@ -101,8 +110,8 @@ def main():
 
         # ─── Global Filters ─────────────────────────────────────────────────
         st.markdown(
-            '<div style="font-size:11px; color:#94A3B8; letter-spacing:1.5px; '
-            'text-transform:uppercase; margin-bottom:8px; font-weight:600;">Filters</div>',
+            '<div style="font-size:10px; color:#6B7280; letter-spacing:1.5px; '
+            'text-transform:uppercase; margin-bottom:8px; font-weight:700;">Filters</div>',
             unsafe_allow_html=True
         )
 
@@ -152,8 +161,8 @@ def main():
 
         # ─── Data Summary ───────────────────────────────────────────────────
         st.markdown(
-            '<div style="font-size:11px; color:#94A3B8; letter-spacing:1.5px; '
-            'text-transform:uppercase; margin-bottom:8px; font-weight:600;">Data Summary</div>',
+            '<div style="font-size:10px; color:#6B7280; letter-spacing:1.5px; '
+            'text-transform:uppercase; margin-bottom:8px; font-weight:700;">Data Summary</div>',
             unsafe_allow_html=True
         )
 
@@ -169,14 +178,14 @@ def main():
         filtered_df = apply_filters(featured_df, filters)
 
         st.markdown(
-            f'<div style="background:rgba(99,102,241,0.08); border-radius:10px; padding:12px; '
-            f'font-size:13px; color:{COLORS["text_muted"]};">'
-            f'<div>📦 <strong style="color:{COLORS["text_primary"]}">{len(filtered_df):,}</strong> '
-            f'/ {len(featured_df):,} trips</div>'
-            f'<div>🔗 <strong style="color:{COLORS["text_primary"]}">{len(graph_df):,}</strong> corridors</div>'
-            f'<div>🏢 <strong style="color:{COLORS["text_primary"]}">{G.number_of_nodes()}</strong> hubs</div>'
-            f'<div>⚠️ <strong style="color:{COLORS["danger"]}">'
-            f'{filtered_df["sla_breach"].sum():,}</strong> SLA breaches</div>'
+            f'<div style="background:#2C2C2E; border-radius:6px; padding:12px; '
+            f'font-size:13px; color:#9CA3AF;">'
+            f'<div style="margin-bottom:5px;">📦 <strong style="color:#F9FAFB">{len(filtered_df):,}</strong> '
+            f'<span style="color:#6B7280;">/ {len(featured_df):,} trips</span></div>'
+            f'<div style="margin-bottom:5px;">🔗 <strong style="color:#F9FAFB">{len(graph_df):,}</strong> <span style="color:#6B7280;">corridors</span></div>'
+            f'<div style="margin-bottom:5px;">🏢 <strong style="color:#F9FAFB">{G.number_of_nodes()}</strong> <span style="color:#6B7280;">hubs</span></div>'
+            f'<div>⚠️ <strong style="color:#FCA5A5;">'
+            f'{filtered_df["sla_breach"].sum():,}</strong> <span style="color:#6B7280;">SLA breaches</span></div>'
             f'</div>',
             unsafe_allow_html=True
         )
@@ -185,10 +194,10 @@ def main():
 
         # Footer
         st.markdown(
-            f'<div style="text-align:center; font-size:10px; color:{COLORS["text_muted"]}; padding:8px 0;">'
-            f'Powered by Graph Neural Intelligence<br>'
-            f'© 2024 ETA Optimization Project'
-            f'</div>',
+            '<div style="text-align:left; font-size:10px; color:#6B7280; padding:8px 0; border-top:1px solid #3A3A3C; margin-top:8px;">'
+            'Graph-Based Network Intelligence<br>'
+            '© 2024 ETA Optimization Project'
+            '</div>',
             unsafe_allow_html=True
         )
 

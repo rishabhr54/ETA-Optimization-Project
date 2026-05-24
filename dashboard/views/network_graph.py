@@ -93,14 +93,14 @@ def render(graph_df: pd.DataFrame, G: nx.DiGraph, betweenness: dict, degree_cent
         dr = data.get('delay_ratio', 0)
         w = data.get('weight', 1)
 
-        # Color by delay severity
+        # Color by delay severity — muted tones for light background
         norm_delay = min(dr / max(max_delay, 0.01), 1.0)
         if norm_delay < 0.3:
-            color = f"rgba(34,197,94,{0.3 + norm_delay})"
+            color = "rgba(21,128,61,0.5)"   # muted green
         elif norm_delay < 0.6:
-            color = f"rgba(245,158,11,{0.3 + norm_delay})"
+            color = "rgba(180,83,9,0.5)"    # muted amber
         else:
-            color = f"rgba(239,68,68,{0.3 + norm_delay})"
+            color = "rgba(185,28,28,0.6)"   # muted red
 
         width = max(0.5, min(4, w / max(max_weight, 1) * 4))
 
@@ -141,7 +141,7 @@ def render(graph_df: pd.DataFrame, G: nx.DiGraph, betweenness: dict, degree_cent
         marker=dict(
             size=node_size,
             color=node_color,
-            colorscale='Viridis',
+            colorscale='RdBu_r',
             showscale=True,
             colorbar=dict(
                 title=dict(text="Betweenness", font=dict(size=12, color=COLORS['text_muted'])),
@@ -149,7 +149,7 @@ def render(graph_df: pd.DataFrame, G: nx.DiGraph, betweenness: dict, degree_cent
                 len=0.5,
                 tickfont=dict(color=COLORS['text_muted']),
             ),
-            line=dict(width=1, color='rgba(255,255,255,0.3)'),
+            line=dict(width=1, color='rgba(0,0,0,0.15)'),
         ),
         hoverinfo='text',
         text=[''] * len(node_x),

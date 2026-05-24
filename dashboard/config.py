@@ -1,6 +1,7 @@
 """
 Dashboard Configuration
 Centralized config for paths, theme colors, and constants.
+Theme: Delhivery-inspired — white, black, and red; clean and corporate.
 """
 
 import os
@@ -14,54 +15,67 @@ GRAPH_FEATURED_DATA = os.path.join(DATA_DIR, "graph_featured_data.csv")
 GRAPH_DATA = os.path.join(DATA_DIR, "graph_data.csv")
 MODEL_COMPARISON = os.path.join(REPORTS_DIR, "model_comparison.csv")
 
-# ─── Theme Colors ──────────────────────────────────────────────────────────────
+# ─── Theme Colors (Delhivery palette) ─────────────────────────────────────────
 COLORS = {
-    "primary": "#6366F1",        # Indigo
-    "primary_light": "#818CF8",
-    "secondary": "#EC4899",      # Pink
-    "accent": "#14B8A6",         # Teal
-    "success": "#22C55E",        # Green
-    "warning": "#F59E0B",        # Amber
-    "danger": "#EF4444",         # Red
-    "info": "#3B82F6",           # Blue
-    "bg_dark": "#0F172A",        # Slate 900
-    "bg_card": "#1E293B",        # Slate 800
-    "text_primary": "#F1F5F9",   # Slate 100
-    "text_muted": "#94A3B8",     # Slate 400
-    "border": "#334155",         # Slate 700
+    "primary":       "#D0021B",   # Delhivery red
+    "primary_light": "#F4CDD1",   # Light red tint
+    "primary_dark":  "#A30015",   # Deep red
+    "secondary":     "#1C1C1E",   # Near-black
+    "accent":        "#374151",   # Dark slate (secondary text/icons)
+    "success":       "#15803D",   # Muted green
+    "warning":       "#B45309",   # Muted amber
+    "danger":        "#B91C1C",   # Muted red (distinct from primary)
+    "info":          "#1D4ED8",   # Muted blue
+    "bg_page":       "#F5F5F5",   # Light gray page background
+    "bg_card":       "#FFFFFF",   # White card
+    "bg_sidebar":    "#1C1C1E",   # Dark sidebar (contrast)
+    "text_primary":  "#1C1C1E",   # Near-black body text
+    "text_muted":    "#6B7280",   # Medium gray
+    "text_light":    "#9CA3AF",   # Light gray
+    "border":        "#E5E7EB",   # Hairline border
+    "border_dark":   "#D1D5DB",   # Slightly darker border
 }
 
-# Plotly color scales
+# Plotly color scales — subdued, red-anchored
 DELAY_COLORSCALE = [
-    [0.0, "#22C55E"],   # Green - low delay
-    [0.3, "#F59E0B"],   # Amber - moderate
-    [0.6, "#F97316"],   # Orange - high
-    [1.0, "#EF4444"],   # Red - critical
+    [0.0, "#22C55E"],   # Green — on time
+    [0.4, "#F59E0B"],   # Amber — moderate
+    [0.7, "#F97316"],   # Orange — high
+    [1.0, "#B91C1C"],   # Dark red — critical
 ]
 
-GRADIENT_COLORS = ["#6366F1", "#818CF8", "#A78BFA", "#C4B5FD", "#DDD6FE"]
+GRADIENT_COLORS = ["#D0021B", "#E04D5A", "#E87A84", "#F0A8AE", "#F7D5D8"]
 
 CHART_COLORS = [
-    "#6366F1", "#EC4899", "#14B8A6", "#F59E0B", "#3B82F6",
-    "#8B5CF6", "#EF4444", "#22C55E", "#06B6D4", "#F97316",
+    "#D0021B",  # Red (primary)
+    "#1C1C1E",  # Near-black
+    "#374151",  # Slate
+    "#B45309",  # Amber
+    "#1D4ED8",  # Blue
+    "#15803D",  # Green
+    "#6B7280",  # Gray
+    "#7C3AED",  # Violet (muted)
+    "#0E7490",  # Cyan (muted)
+    "#92400E",  # Brown
 ]
 
 # ─── Dashboard Constants ───────────────────────────────────────────────────────
-SLA_THRESHOLD = 1.5         # delay_ratio above this = SLA breach
-BOTTLENECK_THRESHOLD = 0.7  # top 30% centrality = bottleneck
-HIGH_RISK_SCORE = 3.0       # corridor risk score threshold
-TOP_N = 15                  # default top-N for charts
+SLA_THRESHOLD = 1.5
+BOTTLENECK_THRESHOLD = 0.7
+HIGH_RISK_SCORE = 3.0
+TOP_N = 15
 
-# ─── Plotly Layout Defaults ────────────────────────────────────────────────────
+# ─── Plotly Layout Defaults (light theme) ─────────────────────────────────────
 PLOTLY_LAYOUT = dict(
-    paper_bgcolor="rgba(0,0,0,0)",
-    plot_bgcolor="rgba(0,0,0,0)",
-    font=dict(family="Inter, sans-serif", color=COLORS["text_primary"]),
-    margin=dict(l=40, r=20, t=50, b=40),
+    paper_bgcolor="#FFFFFF",
+    plot_bgcolor="#FFFFFF",
+    font=dict(family="Inter, Arial, sans-serif", color=COLORS["text_primary"], size=12),
+    margin=dict(l=48, r=24, t=56, b=48),
     hoverlabel=dict(
-        bgcolor=COLORS["bg_card"],
-        font_size=13,
-        font_family="Inter, sans-serif",
-        bordercolor=COLORS["border"],
+        bgcolor=COLORS["secondary"],
+        font_size=12,
+        font_family="Inter, Arial, sans-serif",
+        font_color="#FFFFFF",
+        bordercolor=COLORS["secondary"],
     ),
 )

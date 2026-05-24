@@ -108,10 +108,10 @@ def render(featured_df: pd.DataFrame, graph_df: pd.DataFrame, model_df: pd.DataF
                 **PLOTLY_LAYOUT,
                 height=380,
                 xaxis_title="Hour of Day",
-                yaxis=dict(title="Trip Count", gridcolor="rgba(148,163,184,0.1)"),
+                yaxis=dict(title="Trip Count", gridcolor="rgba(0,0,0,0.06)"),
                 yaxis2=dict(
                     title="Avg Delay Ratio", overlaying='y', side='right',
-                    gridcolor="rgba(148,163,184,0.05)",
+                    gridcolor="rgba(0,0,0,0.03)",
                 ),
                 legend=dict(
                     orientation="h", yanchor="bottom", y=1.02,
@@ -184,7 +184,7 @@ def render(featured_df: pd.DataFrame, graph_df: pd.DataFrame, model_df: pd.DataF
                 mode='lines+markers',
                 line=dict(color=COLORS['accent'], width=3),
                 marker=dict(size=10, color=COLORS['accent'],
-                            line=dict(color=COLORS['bg_dark'], width=2)),
+                            line=dict(color=COLORS['bg_card'], width=2)),
                 fill='tozeroy',
                 fillcolor='rgba(20,184,166,0.1)',
                 hovertemplate="Month %{x}<br>Avg Delay: %{y:.2f}x<br>Trips: %{customdata:,}<extra></extra>",

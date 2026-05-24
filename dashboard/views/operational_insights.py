@@ -351,7 +351,7 @@ def render(featured_df: pd.DataFrame, graph_df: pd.DataFrame, G, betweenness: di
                 mode='lines+markers+text',
                 line=dict(color=COLORS['danger'], width=3),
                 marker=dict(size=10, color=COLORS['danger'],
-                            line=dict(color=COLORS['bg_dark'], width=2)),
+                            line=dict(color=COLORS['bg_card'], width=2)),
                 fill='tozeroy',
                 fillcolor='rgba(239,68,68,0.1)',
                 text=hourly_breach['breach_rate'].round(1).astype(str) + '%',

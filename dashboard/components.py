@@ -1,6 +1,7 @@
 """
 UI Components Module
-Reusable Streamlit UI components: KPI cards, charts, styling.
+Reusable Streamlit UI components and CSS — Delhivery-inspired theme.
+White background, black sidebar, red accents. Clean and corporate.
 """
 
 import streamlit as st
@@ -8,247 +9,313 @@ from config import COLORS
 
 
 def inject_custom_css():
-    """Inject modern, premium custom CSS for the entire dashboard."""
+    """Inject the Delhivery-themed CSS for the entire dashboard."""
     st.markdown("""
     <style>
-    /* ─── Google Font ────────────────────────────────────────────────────── */
+    /* ─── Google Font ─────────────────────────────────────────────── */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-    /* ─── Global ─────────────────────────────────────────────────────────── */
+    /* ─── Reset & Global ──────────────────────────────────────────── */
     html, body, [class*="st-"] {
-        font-family: 'Inter', sans-serif;
+        font-family: 'Inter', Arial, sans-serif;
     }
 
+    /* Page background — clean light gray */
     .stApp {
-        background: linear-gradient(135deg, #0F172A 0%, #1a1f3a 50%, #0F172A 100%);
+        background-color: #F5F5F5;
     }
 
-    /* ─── Sidebar ────────────────────────────────────────────────────────── */
+    /* ─── Sidebar — dark/black Delhivery style ────────────────────── */
     section[data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #1E293B 0%, #0F172A 100%);
-        border-right: 1px solid rgba(99,102,241,0.2);
+        background-color: #1C1C1E;
+        border-right: 3px solid #D0021B;
     }
-    section[data-testid="stSidebar"] .stMarkdown h1,
-    section[data-testid="stSidebar"] .stMarkdown h2,
-    section[data-testid="stSidebar"] .stMarkdown h3 {
-        color: #F1F5F9;
+    section[data-testid="stSidebar"] * {
+        color: #F9FAFB !important;
+    }
+    section[data-testid="stSidebar"] .stSelectbox label,
+    section[data-testid="stSidebar"] .stSlider label,
+    section[data-testid="stSidebar"] .stRadio label {
+        color: #9CA3AF !important;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        font-weight: 600;
+    }
+    /* Sidebar radio buttons */
+    section[data-testid="stSidebar"] .stRadio div[role="radiogroup"] label {
+        font-size: 13px !important;
+        font-weight: 500 !important;
+        text-transform: none !important;
+        letter-spacing: 0 !important;
+        padding: 6px 8px;
+        border-radius: 6px;
+        transition: background 0.15s;
+    }
+    section[data-testid="stSidebar"] .stRadio div[role="radiogroup"] label:hover {
+        background: rgba(208, 2, 27, 0.12);
+    }
+    /* Sidebar inputs */
+    section[data-testid="stSidebar"] .stSelectbox > div > div {
+        background: #2C2C2E;
+        border: 1px solid #3A3A3C;
+        color: #F9FAFB;
+        border-radius: 6px;
+    }
+    section[data-testid="stSidebar"] .stSlider [data-baseweb="slider"] {
+        margin-top: 4px;
+    }
+    /* Sidebar slider accent color */
+    section[data-testid="stSidebar"] [data-testid="stSlider"] [data-baseweb="thumb"] {
+        background: #D0021B !important;
+    }
+    section[data-testid="stSidebar"] [data-testid="stSlider"] [data-baseweb="track-fill"] {
+        background: #D0021B !important;
     }
 
-    /* ─── KPI Cards ──────────────────────────────────────────────────────── */
-    .kpi-card {
-        background: linear-gradient(145deg, #1E293B, #253348);
-        border: 1px solid rgba(99,102,241,0.15);
-        border-radius: 16px;
-        padding: 24px 20px 20px 20px;
-        text-align: center;
-        transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
-        position: relative;
-        overflow: hidden;
+    /* ─── Main content area ───────────────────────────────────────── */
+    .main .block-container {
+        padding: 2rem 2.5rem 3rem 2.5rem;
+        max-width: 1400px;
     }
-    .kpi-card::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, var(--accent-color, #6366F1), transparent);
-        border-radius: 16px 16px 0 0;
+
+    /* ─── KPI Cards ──────────────────────────────────────────────── */
+    .kpi-card {
+        background: #FFFFFF;
+        border: 1px solid #E5E7EB;
+        border-top: 3px solid var(--accent-color, #D0021B);
+        border-radius: 8px;
+        padding: 20px 18px 16px 18px;
+        text-align: left;
+        transition: box-shadow 0.2s ease;
     }
     .kpi-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 40px rgba(99,102,241,0.15);
-        border-color: rgba(99,102,241,0.3);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.08);
     }
     .kpi-icon {
-        font-size: 28px;
+        font-size: 22px;
         margin-bottom: 8px;
+        display: block;
     }
     .kpi-value {
-        font-size: 32px;
+        font-size: 28px;
         font-weight: 800;
-        background: linear-gradient(135deg, #F1F5F9, #CBD5E1);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        line-height: 1.2;
+        color: #1C1C1E;
+        line-height: 1.1;
         margin-bottom: 4px;
+        letter-spacing: -0.5px;
     }
     .kpi-label {
-        font-size: 12px;
-        font-weight: 500;
-        color: #94A3B8;
-        text-transform: uppercase;
-        letter-spacing: 1.2px;
-    }
-    .kpi-delta {
-        font-size: 13px;
-        font-weight: 600;
-        margin-top: 6px;
-    }
-    .kpi-delta.positive { color: #22C55E; }
-    .kpi-delta.negative { color: #EF4444; }
-
-    /* ─── Section Headers ────────────────────────────────────────────────── */
-    .section-header {
-        font-size: 22px;
-        font-weight: 700;
-        color: #F1F5F9;
-        margin: 32px 0 8px 0;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    .section-subtitle {
-        font-size: 14px;
-        color: #94A3B8;
-        margin-bottom: 20px;
-        line-height: 1.5;
-    }
-
-    /* ─── Glass Card ─────────────────────────────────────────────────────── */
-    .glass-card {
-        background: rgba(30,41,59,0.7);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(99,102,241,0.12);
-        border-radius: 16px;
-        padding: 24px;
-        margin-bottom: 16px;
-    }
-
-    /* ─── Insight Box ────────────────────────────────────────────────────── */
-    .insight-box {
-        background: linear-gradient(145deg, rgba(99,102,241,0.08), rgba(99,102,241,0.02));
-        border-left: 3px solid #6366F1;
-        border-radius: 0 12px 12px 0;
-        padding: 16px 20px;
-        margin: 12px 0;
-        color: #CBD5E1;
-        font-size: 14px;
-        line-height: 1.6;
-    }
-    .insight-box strong {
-        color: #F1F5F9;
-    }
-
-    /* ─── Warning / Danger Boxes ─────────────────────────────────────────── */
-    .warning-box {
-        background: linear-gradient(145deg, rgba(245,158,11,0.08), rgba(245,158,11,0.02));
-        border-left: 3px solid #F59E0B;
-        border-radius: 0 12px 12px 0;
-        padding: 16px 20px;
-        margin: 12px 0;
-        color: #CBD5E1;
-        font-size: 14px;
-    }
-    .danger-box {
-        background: linear-gradient(145deg, rgba(239,68,68,0.08), rgba(239,68,68,0.02));
-        border-left: 3px solid #EF4444;
-        border-radius: 0 12px 12px 0;
-        padding: 16px 20px;
-        margin: 12px 0;
-        color: #CBD5E1;
-        font-size: 14px;
-    }
-    .success-box {
-        background: linear-gradient(145deg, rgba(34,197,94,0.08), rgba(34,197,94,0.02));
-        border-left: 3px solid #22C55E;
-        border-radius: 0 12px 12px 0;
-        padding: 16px 20px;
-        margin: 12px 0;
-        color: #CBD5E1;
-        font-size: 14px;
-    }
-
-    /* ─── Navigation Pill ────────────────────────────────────────────────── */
-    .nav-badge {
-        display: inline-block;
-        background: rgba(99,102,241,0.15);
-        color: #818CF8;
-        padding: 4px 12px;
-        border-radius: 20px;
         font-size: 11px;
         font-weight: 600;
+        color: #6B7280;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+    }
+    .kpi-delta {
+        font-size: 12px;
+        font-weight: 600;
+        margin-top: 6px;
+        display: flex;
+        align-items: center;
+        gap: 3px;
+    }
+    .kpi-delta.positive { color: #15803D; }
+    .kpi-delta.negative { color: #B91C1C; }
+
+    /* ─── Section Headers ────────────────────────────────────────── */
+    .section-header {
+        font-size: 16px;
+        font-weight: 700;
+        color: #1C1C1E;
+        margin: 28px 0 4px 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        letter-spacing: -0.2px;
+    }
+    .section-header::after {
+        content: '';
+        display: inline-block;
+        height: 2px;
+        flex: 1;
+        background: #E5E7EB;
+        margin-left: 8px;
+        border-radius: 1px;
+    }
+    .section-subtitle {
+        font-size: 13px;
+        color: #6B7280;
+        margin-bottom: 16px;
+        line-height: 1.5;
+        font-weight: 400;
+    }
+
+    /* ─── Insight / Alert Boxes ──────────────────────────────────── */
+    .insight-box {
+        background: #F9FAFB;
+        border-left: 3px solid #D0021B;
+        border-radius: 0 6px 6px 0;
+        padding: 14px 16px;
+        margin: 10px 0;
+        color: #374151;
+        font-size: 13px;
+        line-height: 1.6;
+        border: 1px solid #E5E7EB;
+        border-left: 3px solid #D0021B;
+    }
+    .insight-box strong { color: #1C1C1E; }
+
+    .warning-box {
+        background: #FFFBEB;
+        border-left: 3px solid #B45309;
+        border-radius: 0 6px 6px 0;
+        padding: 14px 16px;
+        margin: 10px 0;
+        color: #374151;
+        font-size: 13px;
+        line-height: 1.6;
+        border: 1px solid #FDE68A;
+        border-left: 3px solid #B45309;
+    }
+    .danger-box {
+        background: #FEF2F2;
+        border-left: 3px solid #B91C1C;
+        border-radius: 0 6px 6px 0;
+        padding: 14px 16px;
+        margin: 10px 0;
+        color: #374151;
+        font-size: 13px;
+        line-height: 1.6;
+        border: 1px solid #FECACA;
+        border-left: 3px solid #B91C1C;
+    }
+    .success-box {
+        background: #F0FDF4;
+        border-left: 3px solid #15803D;
+        border-radius: 0 6px 6px 0;
+        padding: 14px 16px;
+        margin: 10px 0;
+        color: #374151;
+        font-size: 13px;
+        line-height: 1.6;
+        border: 1px solid #BBF7D0;
+        border-left: 3px solid #15803D;
+    }
+
+    /* ─── Page Title ─────────────────────────────────────────────── */
+    .page-title {
+        font-size: 28px;
+        font-weight: 800;
+        color: #1C1C1E;
+        margin-bottom: 2px;
+        letter-spacing: -0.5px;
+        line-height: 1.2;
+    }
+    .page-title-accent {
+        color: #D0021B;
+    }
+    .page-subtitle {
+        font-size: 14px;
+        color: #6B7280;
+        margin-bottom: 24px;
+        font-weight: 400;
+    }
+
+    /* ─── Divider ────────────────────────────────────────────────── */
+    .custom-divider {
+        height: 1px;
+        background: #E5E7EB;
+        margin: 20px 0;
+        border: none;
+    }
+
+    /* ─── Nav badge ──────────────────────────────────────────────── */
+    .nav-badge {
+        display: inline-block;
+        background: #FEE2E2;
+        color: #B91C1C;
+        padding: 2px 10px;
+        border-radius: 4px;
+        font-size: 10px;
+        font-weight: 700;
         letter-spacing: 0.5px;
         text-transform: uppercase;
     }
 
-    /* ─── Table styling ──────────────────────────────────────────────────── */
-    .stDataFrame {
-        border-radius: 12px;
-        overflow: hidden;
-    }
-
-    /* ─── Metric override ────────────────────────────────────────────────── */
+    /* ─── Streamlit metric overrides ─────────────────────────────── */
     [data-testid="stMetric"] {
-        background: linear-gradient(145deg, #1E293B, #253348);
-        border: 1px solid rgba(99,102,241,0.12);
-        border-radius: 12px;
+        background: #FFFFFF;
+        border: 1px solid #E5E7EB;
+        border-radius: 8px;
         padding: 16px;
     }
-    [data-testid="stMetricValue"] {
-        font-weight: 700;
-    }
 
-    /* ─── Expander ───────────────────────────────────────────────────────── */
-    .streamlit-expanderHeader {
-        background: rgba(30,41,59,0.5);
+    /* ─── DataFrame ──────────────────────────────────────────────── */
+    .stDataFrame {
         border-radius: 8px;
-        font-weight: 600;
-    }
-
-    /* ─── Plotly chart container ──────────────────────────────────────────── */
-    .stPlotlyChart {
-        border-radius: 12px;
+        border: 1px solid #E5E7EB;
         overflow: hidden;
     }
 
-    /* ─── Page title ─────────────────────────────────────────────────────── */
-    .page-title {
-        font-size: 36px;
-        font-weight: 800;
-        background: linear-gradient(135deg, #6366F1 0%, #EC4899 50%, #14B8A6 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 4px;
-        line-height: 1.3;
-    }
-    .page-subtitle {
-        font-size: 16px;
-        color: #94A3B8;
-        margin-bottom: 30px;
-        font-weight: 400;
-    }
-
-    /* ─── Divider ────────────────────────────────────────────────────────── */
-    .custom-divider {
-        height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(99,102,241,0.3), transparent);
-        margin: 24px 0;
+    /* ─── Buttons ────────────────────────────────────────────────── */
+    .stDownloadButton > button {
+        background: #D0021B;
+        color: #FFFFFF;
         border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 13px;
+        padding: 8px 20px;
+        transition: background 0.15s;
+    }
+    .stDownloadButton > button:hover {
+        background: #A30015;
     }
 
-    /* ─── Scrollbar ──────────────────────────────────────────────────────── */
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
+    /* ─── Top header bar ─────────────────────────────────────────── */
+    header[data-testid="stHeader"] {
+        background: #FFFFFF;
+        border-bottom: 1px solid #E5E7EB;
+    }
+
+    /* ─── Plotly chart container ──────────────────────────────────── */
+    .stPlotlyChart {
+        border-radius: 8px;
+        border: 1px solid #E5E7EB;
+        background: #FFFFFF;
+        overflow: hidden;
+    }
+
+    /* ─── Expander ───────────────────────────────────────────────── */
+    .streamlit-expanderHeader {
+        background: #F9FAFB;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 13px;
+        color: #1C1C1E;
+    }
+
+    /* ─── Scrollbar ──────────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: #F5F5F5; }
     ::-webkit-scrollbar-thumb {
-        background: rgba(99,102,241,0.3);
+        background: #D1D5DB;
         border-radius: 3px;
     }
-    ::-webkit-scrollbar-thumb:hover {
-        background: rgba(99,102,241,0.5);
-    }
+    ::-webkit-scrollbar-thumb:hover { background: #9CA3AF; }
 
-    /* ─── Hide Streamlit defaults ────────────────────────────────────────── */
+    /* ─── Hide default Streamlit chrome ──────────────────────────── */
     #MainMenu { visibility: hidden; }
     footer { visibility: hidden; }
-    header[data-testid="stHeader"] {
-        background: rgba(15,23,42,0.8);
-        backdrop-filter: blur(10px);
-    }
     </style>
     """, unsafe_allow_html=True)
 
 
-def render_kpi_card(icon: str, value: str, label: str, accent_color: str = "#6366F1", delta: str = None, delta_positive: bool = True):
-    """Render a premium KPI metric card."""
+def render_kpi_card(icon: str, value: str, label: str,
+                    accent_color: str = "#D0021B",
+                    delta: str = None, delta_positive: bool = True):
+    """Render a clean, corporate KPI card."""
     delta_html = ""
     if delta:
         cls = "positive" if delta_positive else "negative"
@@ -257,7 +324,7 @@ def render_kpi_card(icon: str, value: str, label: str, accent_color: str = "#636
 
     st.markdown(f"""
     <div class="kpi-card" style="--accent-color: {accent_color};">
-        <div class="kpi-icon">{icon}</div>
+        <span class="kpi-icon">{icon}</span>
         <div class="kpi-value">{value}</div>
         <div class="kpi-label">{label}</div>
         {delta_html}
@@ -266,35 +333,37 @@ def render_kpi_card(icon: str, value: str, label: str, accent_color: str = "#636
 
 
 def render_section_header(icon: str, title: str, subtitle: str = ""):
-    """Render a styled section header."""
-    st.markdown(f'<div class="section-header">{icon} {title}</div>', unsafe_allow_html=True)
+    """Render a section header with horizontal rule."""
+    st.markdown(f'<div class="section-header">{icon} {title}</div>',
+                unsafe_allow_html=True)
     if subtitle:
-        st.markdown(f'<div class="section-subtitle">{subtitle}</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="section-subtitle">{subtitle}</div>',
+                    unsafe_allow_html=True)
 
 
 def render_insight(text: str, box_type: str = "insight"):
-    """Render an insight / info box."""
-    css_class = f"{box_type}-box"
-    st.markdown(f'<div class="{css_class}">{text}</div>', unsafe_allow_html=True)
+    """Render an insight/alert box."""
+    st.markdown(f'<div class="{box_type}-box">{text}</div>',
+                unsafe_allow_html=True)
 
 
 def render_divider():
-    """Render a subtle gradient divider."""
+    """Render a subtle hairline divider."""
     st.markdown('<div class="custom-divider"></div>', unsafe_allow_html=True)
 
 
 def render_page_header(title: str, subtitle: str = ""):
-    """Render a page-level header with gradient title."""
-    st.markdown(f'<div class="page-title">{title}</div>', unsafe_allow_html=True)
+    """Render a page-level header."""
+    # Split title at first space to accent the first word in red
+    parts = title.split(" ", 1)
+    first = parts[0]
+    rest = f" {parts[1]}" if len(parts) > 1 else ""
+    st.markdown(
+        f'<div class="page-title">'
+        f'<span class="page-title-accent">{first}</span>{rest}'
+        f'</div>',
+        unsafe_allow_html=True
+    )
     if subtitle:
-        st.markdown(f'<div class="page-subtitle">{subtitle}</div>', unsafe_allow_html=True)
-
-
-def render_glass_card_start():
-    """Open a glass card container (use with markdown)."""
-    st.markdown('<div class="glass-card">', unsafe_allow_html=True)
-
-
-def render_glass_card_end():
-    """Close a glass card container."""
-    st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="page-subtitle">{subtitle}</div>',
+                    unsafe_allow_html=True)
